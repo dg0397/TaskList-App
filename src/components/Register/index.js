@@ -3,11 +3,14 @@ import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import  Button  from 'components/Button';
 import {useMutation} from "@apollo/client"
+
+import { REGISTER_USER } from 'services';
  
 export default function Register() {
   const { register, handleSubmit, errors } = useForm(); // initialize the hook
-  const [registered , setRegistered] = useState(false);
-  const [isSubmitting,setIsSubmitting] = useState(false)
+  //const [registered , setRegistered] = useState(false);
+  //const [isSubmitting,setIsSubmitting] = useState(false)
+  const [registerUser] = useMutation(REGISTER_USER)
 
   const onSubmit = values => {
     console.log(values);
@@ -17,6 +20,7 @@ export default function Register() {
     //    setRegistered(true)
     //    setIsSubmitting(false)
     //  })
+    registerUser({variables : {...values}})
   };
 
   //const validateUserName = async (value) => {
@@ -27,9 +31,9 @@ export default function Register() {
 //
   //}
 
-  if(registered){
-    return <h4>Congratulation <span role = 'img' aria-label = 'check icon'>✅</span>! You've been successfully registered!</h4>
-  }
+  //if(registered){
+  //  return <h4>Congratulation <span role = 'img' aria-label = 'check icon'>✅</span>! You've been successfully registered!</h4>
+  //}
  
   return (
     <form onSubmit={handleSubmit(onSubmit)} className = 'Form' >
@@ -76,7 +80,7 @@ export default function Register() {
       {errors.password && errors.password.type === "required" && <span className = 'form-error' >{'Password is Required.'}</span>}
       {errors.password && errors.password.type === "minLength" && <span className = 'form-error' >{'Password must be greather than 3 characters.'}</span>}
       
-      <Button disabled={isSubmitting} >Register</Button>
+      <Button  >Register</Button>
     </form>
   );
 }

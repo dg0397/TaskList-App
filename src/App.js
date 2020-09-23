@@ -12,22 +12,26 @@ import Login from "pages/Login"
 import Register from "pages/Register"
 import Dashboard from "pages/Dashboard"
 
+import { UserApolloContextProvider } from 'context/UserContext';
+
 function App() {
   return (
-    <div className="App">
-      <div className="App-content">
-        <Header/>
-        <div className = "App-Main">
-          <Switch>
-            <Route path = '/' component = {Home} />
-            <Route path = '/login' component = {Login} />
-            <Route path = '/register' component = {Register} />
-            <Route path = '/dashboard/:id' component = {Dashboard} />
-          </Switch>
+    <UserApolloContextProvider>
+      <div className="App">
+        <div className="App-content">
+          <Header/>
+          <div className = "App-Main">
+            <Switch>
+              <Route path = '/' component = {Home} />
+              <Route path = '/login' component = {Login} />
+              <Route path = '/register' component = {Register} />
+              <Route path = '/dashboard/:id' component = {Dashboard} />
+            </Switch>
+          </div>
+          <Footer/>
         </div>
-        <Footer/>
       </div>
-    </div>
+    </UserApolloContextProvider>
   );
 }
 
